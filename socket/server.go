@@ -3,6 +3,7 @@ package socket
 import (
 	"fmt"
 	"github.com/gorilla/websocket"
+	"github.com/hecatoncheir/Core/faas"
 	"log"
 	"net/http"
 	"os"
@@ -16,12 +17,13 @@ type Server struct {
 	Log        *log.Logger
 	Clients    map[string]*Client
 
+	functions    faas.FunctionsInterface
 	clientsMutex sync.Mutex
 	headersUp    websocket.Upgrader
 }
 
 // New is constructor for socket server
-func New(apiVersion string) *Server {
+func New(apiVersion string, faasFunctions faas.FunctionsInterface) *Server {
 	up := websocket.Upgrader{
 		ReadBufferSize:  1024,
 		WriteBufferSize: 1024,
@@ -30,6 +32,7 @@ func New(apiVersion string) *Server {
 
 	socketServer := Server{
 		APIVersion: apiVersion,
+		functions:  faasFunctions,
 		Clients:    make(map[string]*Client),
 		headersUp:  up}
 
