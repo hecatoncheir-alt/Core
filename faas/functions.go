@@ -25,11 +25,8 @@ type ParsedProduct struct {
 }
 
 type FunctionsInterface interface {
-	MVideoPageParser(
-		functionGateway, pageForParseIRI string, instruction storage.PageInstruction) []ParsedProduct
-
-	MVideoPagesCountParser(
-		functionGateway, pageForParseIRI string, instruction storage.PageInstruction) int
+	MVideoPageParser(pageForParseIRI string, instruction storage.PageInstruction) []ParsedProduct
+	MVideoPagesCountParser(pageForParseIRI string, instruction storage.PageInstruction) int
 
 	//TODO
 
@@ -52,8 +49,7 @@ func New(APIVersion, FunctionsGateway, DatabaseGateway string) Functions {
 func (functions Functions) MVideoPageParser(
 	pageForParseIRI string, instruction storage.PageInstruction) (products []ParsedProduct) {
 
-	functionPath := fmt.Sprintf(
-		"%v/%v", functions.FunctionsGateway, "mvideo-page-parser")
+	functionPath := fmt.Sprintf("%v/%v", functions.FunctionsGateway, "mvideo-page-parser")
 
 	body := struct {
 		IRI          string
@@ -94,8 +90,7 @@ func (functions Functions) MVideoPageParser(
 func (functions Functions) MVideoPagesCountParser(
 	pageForParseIRI string, instruction storage.PageInstruction) (count int) {
 
-	functionPath := fmt.Sprintf(
-		"%v/%v", functions.FunctionsGateway, "mvideo-pages-count-parser")
+	functionPath := fmt.Sprintf("%v/%v", functions.FunctionsGateway, "mvideo-pages-count-parser")
 
 	body := struct {
 		IRI          string
