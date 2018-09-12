@@ -45,7 +45,7 @@ func TestFunctions_MVideoPagesCountParser(t *testing.T) {
 
 	pagesCount := faas.MVideoPagesCountParser(pageForParseIRI, instruction)
 
-	expected := 86
+	expected := 87
 
 	if pagesCount != expected {
 		t.Fatalf("Expected: %v parsed pages count, but get: %v", expected, pagesCount)
